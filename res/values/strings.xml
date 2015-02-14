@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Countdown clock</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="gmt">GMT</string>
+    <string name="est">EST</string>
+    <string name="builtInHold">Built in hold</string>
+    <string name="windowTimeRemaning">Window time remaining</string>
+    <string name="windowOpeningTime">Window opening time</string>
+    <string name="eLiftoff">Expected liftoff</string>
+    <string name="wClose">Window close</string>
+    <string name="lTime">L-time</string>
+    <string name="tTime">T-Time</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
