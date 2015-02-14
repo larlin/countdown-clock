@@ -27,9 +27,7 @@ proguard/
 proguard-project.txt
 
 #project related files
-.classpath
 project.properties
-.project
 .settings
 
 # Log Files
