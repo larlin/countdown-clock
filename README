@@ -1,0 +1,33 @@
+A Project for developing a Android application to display the countdown data
+from the countdown clock for Kennedy Space Center (KSC) and Vandenberg Airforce
+Base (VAFB).
+
+The data is retrieved and put into a JSON format by TWO9A here:
+https://github.com/Two9A/ksc-json
+
+We will parse this JSON and display it, preferably in some nice way.
+
+Some ideas for architecture:
+
+GUI-based on fragments to hopefully make it easy to make home screen widgets in
+the future.
+
+The Activity or Fragments will countdown the second to second countdown
+internally to avoid pushing updates every second.
+
+SyncAdapter together with ContentProvider will push updates either with some
+interval to keep every thing in sync or when updates received from server.
+
+Preferably we get some sort of push update API to the server data so we don't
+have to pull it to get updates.
+
+
+
+Fragments:
+
+The first simple fragments should be lists with the same basic layout that
+the NASA application uses. A example is available in doc/DSCOVR-screen.png.
+
+The fragments should take lists of labels and data to set up a table layout.
+
+The fragments should probably countdown the relevant time fields each second.
