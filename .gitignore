@@ -27,7 +27,6 @@ proguard/
 proguard-project.txt
 
 #project related files
-project.properties
 .settings
 
 # Log Files
