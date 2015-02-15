@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import larlin.countdownClock.R.drawable;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,18 +27,14 @@ import android.widget.TextView;
  *
  */
 public class InformationFragment extends Fragment {
-	// TODO: Rename parameter arguments, choose names that match
-	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_HEADER = "header", ARG_ROW_LABELS = "row_labels", ARG_ROW_DATA = "row_data";
 //	private static final DateFormat DATE_FORMATER = new SimpleDateFormat("DDD:HH:mm:ss"),
 //									TIME_FORMATER = new SimpleDateFormat("HH:mm:ss");
 	
-	//private String[] rowLabels;
-	private String header;
-	
 	private ArrayList<TextView> rowDataViews = new ArrayList<TextView>();
-	private int rows = 0;
+	private ArrayList<TableRow> rows = new ArrayList<TableRow>();
 	private TableLayout table;
+	private int marked = -1;
 
 	private OnFragmentInteractionListener mListener;
 	/**
@@ -95,6 +92,18 @@ public class InformationFragment extends Fragment {
 //	public void setTimeRow(int row, Date time){
 //		setStringRow(row, TIME_FORMATER.format(time));
 //	}
+	
+	public void setMarkedRow(int row){
+		Log.d("InformationFragment", "Setting row: "+row+" as marked");
+		if(row >= 0 && row < rows.size()){
+			if(marked >= 0){
+				//Unmark last selected row...
+				rows.get(marked).setBackgroundResource(0);
+			}
+			marked = row;
+			rows.get(row).setBackgroundResource(drawable.row_frame);
+		}
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -113,11 +122,14 @@ public class InformationFragment extends Fragment {
 			TextView headerView = (TextView) master.findViewById(R.id.infoHeader);
 			headerView.setText(header);
 			
+			//TODO: Manage labels and data length missmatch...
+			
 			//Create all rows and set labels and if available set data...
 			for(int i = 0; i < rowLabels.length; i++){
 				TableRow row = (TableRow) inflater.inflate(R.layout.information_row, table, false);
 				((TextView) row.findViewById(R.id.rowLabel)).setText(rowLabels[i]);
 				rowDataViews.add((TextView) row.findViewById(R.id.rowData));
+				rows.add(row);
 				if(rowData != null && rowData[i] != null){
 					rowDataViews.get(i).setText(rowData[i]);
 				}

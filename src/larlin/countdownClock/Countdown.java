@@ -33,6 +33,9 @@ public class Countdown extends Activity {
 	private InformationFragment statusFragment, eventsFragment;
 	private TextView missionNameLabel;
 	
+
+	private int test = 1;
+	
 	//Broadcast recevier for reciving broadcasts with data from SyncAdapter.
 	//TODO: We should probably change this to using bounding instead.
 	private BroadcastReceiver bReceiver = new BroadcastReceiver() {
@@ -127,6 +130,7 @@ public class Countdown extends Activity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
+		eventsFragment.setMarkedRow(test++);
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
