@@ -29,8 +29,8 @@ public class InformationFragment extends Fragment {
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_ROW_LABELS = "row_labels", ARG_HEADER = "header";
-	private static final DateFormat DATE_FORMATER = new SimpleDateFormat("DDD:HH:mm:ss"),
-									TIME_FORMATER = new SimpleDateFormat("HH:mm:ss");
+//	private static final DateFormat DATE_FORMATER = new SimpleDateFormat("DDD:HH:mm:ss"),
+//									TIME_FORMATER = new SimpleDateFormat("HH:mm:ss");
 	
 	private String[] rowLabels;
 	private String header;
@@ -78,13 +78,13 @@ public class InformationFragment extends Fragment {
 		dataLabel.setText(data);
 	}
 	
-	public void setDateRow(int row, Date date){
-		setStringRow(row, DATE_FORMATER.format(date));
-	}
-	
-	public void setTimeRow(int row, Date time){
-		setStringRow(row, TIME_FORMATER.format(time));
-	}
+//	public void setDateRow(int row, Date date){
+//		setStringRow(row, DATE_FORMATER.format(date));
+//	}
+//	
+//	public void setTimeRow(int row, Date time){
+//		setStringRow(row, TIME_FORMATER.format(time));
+//	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -29,5 +29,7 @@ proguard-project.txt
 #project related files
 .settings
 
+lint.xml
+
 # Log Files
 *.log

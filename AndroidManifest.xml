@@ -7,6 +7,28 @@
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="21" />
+    
+	<uses-permission
+    	android:name="android.permission.INTERNET"/>
+	
+	<!-- I don't know if we need this permission but they are suggested in the
+    	 syncAdapter examples. -->
+    <!-- Allows your app to read the current sync adapter settings.
+    	 For example, you need this permission in order to call getIsSyncable().  -->
+	<!-- <uses-permission
+        android:name="android.permission.READ_SYNC_SETTINGS"/> -->
+	<!-- Allows your app to control sync adapter settings. You need this permission
+	     in order to set periodic sync adapter runs using addPeriodicSync(). This
+	     permission is not required to call requestSync(). -->
+    <uses-permission
+        android:name="android.permission.WRITE_SYNC_SETTINGS"/>
+    <uses-permission
+        android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
+    
+    <uses-permission 
+        android:name="android.permission.GET_ACCOUNTS"/>
+	
+    
 
     <application
         android:allowBackup="true"
@@ -22,6 +44,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name="larlin.countdownClock.auth.StubAuthService">
+	        <intent-filter>
+	            <action android:name="android.accounts.AccountAuthenticator"/>
+	        </intent-filter>
+	        <meta-data
+	            android:name="android.accounts.AccountAuthenticator"
+	            android:resource="@xml/authenticator" />
+    	</service>
+    	<service
+	        android:name="larlin.countdownClock.sync.CountdownSyncService"
+	        android:exported="true"
+	        android:process=":sync">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter"/>
+            </intent-filter>
+            <meta-data android:name="android.content.SyncAdapter"
+                    android:resource="@xml/syncadapter" />
+        </service>
+    	<provider
+        	android:name="larlin.countdownClock.provider.StubProvider"
+        	android:authorities="larlin.countdownClock.stubProvider"
+        	android:exported="false"
+        	android:syncable="true"/>
+        
     </application>
 
 </manifest>
