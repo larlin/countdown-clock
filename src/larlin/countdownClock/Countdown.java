@@ -91,6 +91,8 @@ public class Countdown extends Activity {
 //		statusFragment.setTimeRow(7, launchDate);
 //		statusFragment.setTimeRow(8, launchDate);
 		
+		//This is just for test purposes I don't know how often the automatic sync
+		//will trigger so this is a way to at least get one sync when the app starts.
         // Pass the settings flags by inserting them in a bundle
         Bundle settingsBundle = new Bundle();
         settingsBundle.putBoolean(
