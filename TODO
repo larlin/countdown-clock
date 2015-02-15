@@ -6,8 +6,3 @@
 * Start work on fetching data from server.
 
 * Parsing the JSON from server.
-
-* A ContentProvider that keeps the data in memory (no point in pushing so short
-	lived data to a database).
-	
-* A SyncAdapter to fetch the data from server and push it to the provider.

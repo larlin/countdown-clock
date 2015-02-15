@@ -15,8 +15,11 @@ the future.
 The Activity or Fragments will countdown the second to second countdown
 internally to avoid pushing updates every second.
 
-SyncAdapter together with ContentProvider will push updates either with some
+SyncAdapter together with will push updates either with some
 interval to keep every thing in sync or when updates received from server.
+
+SyncAdapter pushes the data directly to the Activity by using broadcasts
+replacing this with a bound interface might be a good idea in the future.
 
 Preferably we get some sort of push update API to the server data so we don't
 have to pull it to get updates.
