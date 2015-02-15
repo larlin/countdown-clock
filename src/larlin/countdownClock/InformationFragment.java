@@ -28,11 +28,11 @@ import android.widget.TextView;
 public class InformationFragment extends Fragment {
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-	private static final String ARG_ROW_LABELS = "row_labels", ARG_HEADER = "header";
+	private static final String ARG_HEADER = "header", ARG_ROW_LABELS = "row_labels", ARG_ROW_DATA = "row_data";
 //	private static final DateFormat DATE_FORMATER = new SimpleDateFormat("DDD:HH:mm:ss"),
 //									TIME_FORMATER = new SimpleDateFormat("HH:mm:ss");
 	
-	private String[] rowLabels;
+	//private String[] rowLabels;
 	private String header;
 	
 	private ArrayList<TextView> rowDataViews = new ArrayList<TextView>();
@@ -40,18 +40,38 @@ public class InformationFragment extends Fragment {
 	private TableLayout table;
 
 	private OnFragmentInteractionListener mListener;
-
 	/**
 	 * Use this factory method to create a new instance of this fragment using
-	 * the provided parameters.
-	 *
+	 * the provided parameters. This version is without rowData.
+	 * 
+	 * @param header
+	 * 				String for the header of the table.
 	 * @param rowLabels
 	 * 				Labels for all data rows.
 	 * @return A new instance of fragment InformationFragment.
 	 */
-	public static InformationFragment newInstance(String header, String... rowLabels) {
+	public static InformationFragment newInstance(String header, String[] rowLabels) {
+		return newInstance(header, rowLabels, null);
+	}
+	
+	/**
+	 * Use this factory method to create a new instance of this fragment using
+	 * the provided parameters.
+	 * 
+	 * @param header
+	 * 				String for the header of the table.
+	 * @param rowLabels
+	 * 				Labels for all data rows.
+	 * @param rowData
+	 * 				Data for the rows.
+	 * @return A new instance of fragment InformationFragment.
+	 */
+	public static InformationFragment newInstance(String header, String[] rowLabels, String[] rowData) {
 		InformationFragment fragment = new InformationFragment();
 		Bundle args = new Bundle();
+		if(rowData != null){
+			args.putStringArray(ARG_ROW_DATA, rowData);
+		}
 		args.putStringArray(ARG_ROW_LABELS, rowLabels);
 		args.putString(ARG_HEADER, header);
 		fragment.setArguments(args);
@@ -60,15 +80,6 @@ public class InformationFragment extends Fragment {
 
 	public InformationFragment() {
 		// Required empty public constructor
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		if (getArguments() != null) {
-			rowLabels = getArguments().getStringArray(ARG_ROW_LABELS);
-			header = getArguments().getString(ARG_HEADER);
-		}
 	}
 	
 	public void setStringRow(int row, String data){
@@ -92,16 +103,26 @@ public class InformationFragment extends Fragment {
 		View master = inflater
 				.inflate(R.layout.fragment_information, container, false);
 		
-		TextView headerView = (TextView) master.findViewById(R.id.infoHeader);
-		headerView.setText(header);
+		//We can't do much without arguments...
+		if(getArguments() != null){
+			table = (TableLayout) master.findViewById(R.id.infoTable);
+			String header = getArguments().getString(ARG_HEADER);
+			String[] rowLabels = getArguments().getStringArray(ARG_ROW_LABELS);
+			String[] rowData = getArguments().getStringArray(ARG_ROW_DATA);
 		
-		table = (TableLayout) master.findViewById(R.id.infoTable);
-		
-		for(String label:rowLabels){
-			TableRow row = (TableRow) inflater.inflate(R.layout.information_row, table, false);
-			((TextView) row.findViewById(R.id.rowLabel)).setText(label);
-			rowDataViews.add((TextView) row.findViewById(R.id.rowData));
-			table.addView(row);
+			TextView headerView = (TextView) master.findViewById(R.id.infoHeader);
+			headerView.setText(header);
+			
+			//Create all rows and set labels and if available set data...
+			for(int i = 0; i < rowLabels.length; i++){
+				TableRow row = (TableRow) inflater.inflate(R.layout.information_row, table, false);
+				((TextView) row.findViewById(R.id.rowLabel)).setText(rowLabels[i]);
+				rowDataViews.add((TextView) row.findViewById(R.id.rowData));
+				if(rowData != null && rowData[i] != null){
+					rowDataViews.get(i).setText(rowData[i]);
+				}
+				table.addView(row);
+			}
 		}
 		
 		return master;

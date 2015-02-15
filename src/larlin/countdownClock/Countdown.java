@@ -18,9 +18,7 @@ import android.widget.TextView;
 
 public class Countdown extends Activity {
 	
-	private static final String[] TEST_STATUS_LABELS = new String[]{"GMT", "EST", "BUILT-IN-HOLD", "WINDOW TIME REMAINING", "WINDOW OPENING TIME", "EXPECTED LIFTOFF", "WINDOW CLOSE", "L-TIME", "T-TIME"},
-								  TEST_EVENTS_LABELS = new String[]{"L-TIME", "START PAD CLEAR", "NOMINAL SV POLL", "NEMO ON STATION", "SPACEX CD POLL", "NOMINAL SV POLL", "RDY TO CONTINUE", "NOMINAL SV POLL", "PAD CLEAR COMPLETE", "HE SPIN FILL START", "RNG HOLDFIRE CKS"};
-	private static final String TEST_MISSION = "FALCON 9/DSCOVR LCH", TEST_STATUS_HEADER = "MISSION STATUS", TEST_EVENTS_HEADER = "COUNTDOWN EVENTS";
+	private static final String TEST_STATUS_HEADER = "MISSION STATUS", TEST_EVENTS_HEADER = "COUNTDOWN EVENTS";
 	
     // Constants
     // The authority for the sync adapter's content provider
