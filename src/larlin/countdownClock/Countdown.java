@@ -33,6 +33,7 @@ public class Countdown extends Activity {
     private Account stubAccount;
 	
 	private InformationFragment statusFragment, eventsFragment;
+	private TextView missionNameLabel;
 	
 	//Broadcast recevier for reciving broadcasts with data from SyncAdapter.
 	//TODO: We should probably change this to using bounding instead.
@@ -41,7 +42,12 @@ public class Countdown extends Activity {
 	    public void onReceive(Context context, Intent intent) {
 	    	Log.d("Countdonw", "Recived broadcast!");
 	        if(intent.getAction().equals(CountdownSyncAdapter.ACTION_UPDATE_COUNTDOWN)) {
-	        	statusFragment.setStringRow(0, "Updated!");
+	        	setMissionName(intent.getStringExtra(CountdownSyncAdapter.EXTRA_MISSION_NAME));
+	        	if(!fragmentsCreated()){
+	        		Log.d("Countdown", "creating fragments!");
+	        		createFragments(intent.getStringArrayExtra(CountdownSyncAdapter.EXTRA_STATUS_LABELS),
+	        						intent.getStringArrayExtra(CountdownSyncAdapter.EXTRA_EVENTS_LABELS));
+	        	}
 	        }
 	    }
 	};
@@ -51,14 +57,7 @@ public class Countdown extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_countdown);
 		if (savedInstanceState == null) {
-			TextView missionName = (TextView) findViewById(R.id.missionName);
-			missionName.setText(TEST_MISSION);
-			FragmentTransaction trans = getFragmentManager().beginTransaction();
-			statusFragment = InformationFragment.newInstance(TEST_STATUS_HEADER, TEST_STATUS_LABELS);
-			eventsFragment = InformationFragment.newInstance(TEST_EVENTS_HEADER, TEST_EVENTS_LABELS);
-			trans.add(R.id.container, statusFragment);
-			trans.add(R.id.container, eventsFragment);
-			trans.commit();
+			missionNameLabel = (TextView) findViewById(R.id.missionName);
 		}
 		
 		Log.d("Countdown", "Registering breciver");
@@ -68,8 +67,24 @@ public class Countdown extends Activity {
 		stubAccount = createSyncAccount(this);
         // Turn on automatic syncing for the default account and authority
         ContentResolver.setSyncAutomatically(stubAccount, AUTHORITY, true);
-        
-
+	}
+	
+	private void setMissionName(String missionName){
+		missionNameLabel.setText(missionName);
+	}
+	
+	private void createFragments(String[] statusLabels, String[] eventsLabels){
+		Log.d("Countdonw", "Status: "+statusLabels.length+" events: "+eventsLabels.length);
+		FragmentTransaction trans = getFragmentManager().beginTransaction();
+		statusFragment = InformationFragment.newInstance(TEST_STATUS_HEADER, statusLabels);
+		eventsFragment = InformationFragment.newInstance(TEST_EVENTS_HEADER, eventsLabels);
+		trans.add(R.id.container, statusFragment);
+		trans.add(R.id.container, eventsFragment);
+		trans.commit();
+	}
+	
+	private boolean fragmentsCreated(){
+		return statusFragment != null;
 	}
 
 	@Override

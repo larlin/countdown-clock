@@ -49,7 +49,6 @@ public class InformationFragment extends Fragment {
 	 * 				Labels for all data rows.
 	 * @return A new instance of fragment InformationFragment.
 	 */
-	// TODO: Rename and change types and number of parameters
 	public static InformationFragment newInstance(String header, String... rowLabels) {
 		InformationFragment fragment = new InformationFragment();
 		Bundle args = new Bundle();
@@ -104,6 +103,7 @@ public class InformationFragment extends Fragment {
 			rowDataViews.add((TextView) row.findViewById(R.id.rowData));
 			table.addView(row);
 		}
+		
 		return master;
 	}
 
