@@ -63,6 +63,10 @@
             <meta-data android:name="android.content.SyncAdapter"
                     android:resource="@xml/syncadapter" />
         </service>
+        <service android:name="larlin.countdownClock.service.WebsocketService"
+	        android:exported="false">
+            
+        </service>
     	<provider
         	android:name="larlin.countdownClock.provider.StubProvider"
         	android:authorities="larlin.countdownClock.stubProvider"

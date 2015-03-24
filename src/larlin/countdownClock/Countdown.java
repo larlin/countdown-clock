@@ -1,5 +1,6 @@
 package larlin.countdownClock;
 
+import larlin.countdownClock.service.WebsocketService;
 import larlin.countdownClock.sync.CountdownSyncAdapter;
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -56,6 +57,10 @@ public class Countdown extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		Intent intent = new Intent(this, WebsocketService.class);
+		startService(intent);
+		
 		setContentView(R.layout.activity_countdown);
 		if (savedInstanceState == null) {
 			missionNameLabel = (TextView) findViewById(R.id.missionName);
@@ -180,6 +185,10 @@ public class Countdown extends Activity {
     protected void onDestroy() {
       // Unregister since the activity is about to be closed.
       unregisterReceiver(bReceiver);
+      
+      Intent intent = new Intent(this, WebsocketService.class);
+      stopService(intent);
+      
       super.onDestroy();
     }
 
